@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ question.question_text }}{% endblock %}
+
+{% block content %}
+
+<!-- bootstrap Alerts - http://getbootstrap.com/components/#alerts -->
+{% if error_message %}<div class="alert alert-danger">{{ error_message }}</div>{% endif %}
+
+<h2>{{ question.question_text }}</h2>
+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+{% csrf_token %}
+{% for choice in question.choice_set.all %}
+	<div class="radio">
+    <label for="choice{{ forloop.counter }}">
+		<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+    {{ choice.choice_text }}</label>
+	</div>
+{% endfor %}
+<!-- bootsrap Buttons - http://getbootstrap.com/css/#buttons -->
+<input class="btn btn-default" type="submit" value="Vote">
+</form>
+
+{% endblock %}

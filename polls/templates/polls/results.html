@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ question.question_text }}{% endblock %}
+
+{% block content %}
+
+<h2>{{ question.question_text }}</h2>
+
+<ul>
+{% for choice in question.choice_set.all %}
+    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+{% endfor %}
+</ul>
+
+<!-- bootsrap Buttons - http://getbootstrap.com/css/#buttons -->
+<a class="btn btn-default" href="{% url 'polls:detail' question.id %}" role="button">Vote again?</a>
+<a class="btn btn-default" href="{% url 'polls:index'%}" role="button">View Polls?</a>
+
+{% endblock %}

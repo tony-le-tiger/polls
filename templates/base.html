@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'polls/images/favicon.ico' %}">
+
+    <title>{% block title %}USMA IT394 Polls App{% endblock %}</title>
+
+    <link href="{% static 'bootstrap-3.3.4-dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap-3.3.4-dist/examples/dashboard/dashboard.css' %}" rel="stylesheet">
+	<link href="{% static 'polls/style.css' %}" rel="stylesheet" type="text/css"  />
+	
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'polls:index' %}">USMA IT394 Polls</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+						<li><a href="{% url 'django.contrib.auth.views.logout' %}">Logout {{ user.username }}</a></li>
+                        <li><a href="{% url 'admin:index' %}" target="_blank">Admin</a></li>
+						<li><a href="https://codeship.com/projects/72411" target="_blank">CodeShip</a></li>
+                    {% else %}
+						<li>Hello world</li>
+                    {% endif %}
+                        <li><a href="http://github.com" target="_blank">GitHub</a></li>
+              </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            {% block side_block %}{% endblock %}
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+           <div>
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<!-- backstretch - http://srobbin.com/jquery-plugins/backstretch/ -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+	<script>
+	    $.backstretch("{% static 'polls/images/background.jpg' %}");
+	</script>
+    <script src="{% static 'bootstrap-3.3.4-dist/js/bootstrap.min.js' %}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{% static 'bootstrap-3.3.4-dist/assets/js/ie10-viewport-bug-workaround.js' %}"></script>
+  </body>
+</html>
