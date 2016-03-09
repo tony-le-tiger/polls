@@ -183,16 +183,17 @@ class QuestionModelTests(TestCase):
     # django.db so we can use a simple unit test for that.
     # This unit test will fail when using sqlite3 because it does not enforce
     # max_length.
+	'''
     def test_question_text_max_length(self):
         """
         Should not allow question text longer than 200 characters
         """
         with self.assertRaises(DataError):
             question = create_question(question_text=u'a'*201, days=-1)
-
+	'''
     #validators are not enforced by django.db so we need to use an
     #integration test with a ModelForm.
-    def test_pub_date_not_future(self):
+def test_pub_date_not_future(self):
         """
         Should not allow questions published in the future
         """

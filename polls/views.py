@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.template import RequestContext, loader
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.utils import timezone
@@ -70,3 +71,10 @@ class QuestionModelForm(ModelForm):
         model = Question
         fields = ['question_text', 'pub_date']
 
+def index(request):
+    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    template = loader.get_template('polls/index.html')
+    context = RequestContext(request, {
+        'latest_question_list': latest_question_list,
+    })
+    return HttpResponse(template.render(context))
